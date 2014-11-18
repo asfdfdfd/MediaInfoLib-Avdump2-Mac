@@ -105,7 +105,7 @@ void File_Dxw::Streams_Finish_ParseReference()
             MI->Option(_T("File_NextPacket"), _T("1"));
         if (Config->Event_CallBackFunction_IsSet())
             MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-        MI->Option(_T("File_SubFile_StreamID_Set"), Ztring::ToZtring(Reference-References.begin()+1));
+        MI->Option(_T("File_SubFile_StreamID_Set"), Ztring::ToZtring((int64u)(Reference-References.begin()+1)));
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
                 MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
@@ -125,7 +125,7 @@ void File_Dxw::Streams_Finish_ParseReference()
             //Filling
             if (StreamKind_Last!=Stream_Max)
             {
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, Ztring::ToZtring(Reference-References.begin()+1));
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, Ztring::ToZtring((int64u)(Reference-References.begin()+1)));
                 Fill(StreamKind_Last, StreamPos_Last, "Source", (*Reference).FileName);
                 Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Missing");
             }
@@ -164,7 +164,7 @@ void File_Dxw::Streams_Finish_ParseReference_Finalize ()
             Fill(StreamKind_Last, StreamPos_Last, "Source", (*Reference).FileName);
 
             //ID
-            Ztring ID=Ztring::ToZtring(Reference-References.begin()+1);
+            Ztring ID=Ztring::ToZtring((int64u)(Reference-References.begin()+1));
             if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
                 ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
